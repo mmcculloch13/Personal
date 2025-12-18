@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Advocacy Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f7;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 32px 40px;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .stat-card {
+            padding: 32px 40px;
+            border-right: 1px solid #e5e5e5;
+            text-align: center;
+        }
+        
+        .stat-card:last-child {
+            border-right: none;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .stat-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1;
+        }
+        
+        .details-section {
+            padding: 40px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .breakdown-card {
+            background: #f9f9fb;
+            border-radius: 8px;
+            padding: 24px;
+        }
+        
+        .breakdown-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .breakdown-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .status-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .status-open { background: #ff6b6b; }
+        .status-progress { background: #4dabf7; }
+        .status-review { background: #a78bfa; }
+        
+        .breakdown-value {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .count {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 24px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .stat-card {
+                padding: 24px;
+            }
+            
+            .stat-value {
+                font-size: 36px;
+            }
+            
+            .details-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 
+        ═══════════════════════════════════════════════════════════
+        HEADER SECTION
+        ═══════════════════════════════════════════════════════════
+        Edit the title and subtitle below
+        -->
+        <div class="header">
+            <h1>Customer Advocacy Snapshot</h1>
+            <p>Unresolved P0/P1 Cases Overview</p>
+        </div>
+        
+        <!-- 
+        ═══════════════════════════════════════════════════════════
+        TOP STATS SECTION
+        ═══════════════════════════════════════════════════════════
+        Update these four numbers with your current data
+        -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Issues</div>
+                <div class="stat-value">44</div> <!-- EDIT THIS NUMBER -->
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Open</div>
+                <div class="stat-value">4</div> <!-- EDIT THIS NUMBER -->
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">In Progress</div>
+                <div class="stat-value">20</div> <!-- EDIT THIS NUMBER -->
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">In Review</div>
+                <div class="stat-value">20</div> <!-- EDIT THIS NUMBER -->
+            </div>
+        </div>
+        
+        <!-- 
+        ═══════════════════════════════════════════════════════════
+        P0 AND P1 BREAKDOWN SECTION
+        ═══════════════════════════════════════════════════════════
+        Update the numbers in each priority section below
+        -->
+        <div class="details-section">
+            <h2 class="section-title">Priority Breakdown</h2>
+            
+            <div class="breakdown-grid">
+                <!-- 
+                ────────────────────────────────────────────────────
+                P0 CASES
+                ────────────────────────────────────────────────────
+                -->
+                <div class="breakdown-card">
+                    <h3>P0 Cases</h3>
+                    
+                    <!-- P0 Open Cases -->
+                    <div class="breakdown-item">
+                        <div class="status-label">
+                            <span class="status-dot status-open"></span>
+                            Open
+                        </div>
+                        <div class="breakdown-value">
+                            <span class="count">2</span> <!-- EDIT THIS NUMBER -->
+                        </div>
+                    </div>
+                    
+                    <!-- P0 In Progress Cases -->
+                    <div class="breakdown-item">
+                        <div class="status-label">
+                            <span class="status-dot status-progress"></span>
+                            In Progress
+                        </div>
+                        <div class="breakdown-value">
+                            <span class="count">8</span> <!-- EDIT THIS NUMBER -->
+                        </div>
+                    </div>
+                    
+                    <!-- P0 In Review Cases -->
+                    <div class="breakdown-item">
+                        <div class="status-label">
+                            <span class="status-dot status-review"></span>
+                            In Review
+                        </div>
+                        <div class="breakdown-value">
+                            <span class="count">7</span> <!-- EDIT THIS NUMBER -->
+                        </div>
+                    </div>
+                    
+                    <!-- P0 Total -->
+                    <div style="margin-top: 24px; padding-top: 20px; border-top: 2px solid #e5e5e5;">
+                        <div class="breakdown-item">
+                            <div class="status-label" style="font-weight: 700; color: #dc2626;">
+                                Total P0
+                            </div>
+                            <div class="breakdown-value">
+                                <span class="count" style="color: #dc2626;">17</span> <!-- EDIT THIS NUMBER -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 
+                ────────────────────────────────────────────────────
+                P1 CASES
+                ────────────────────────────────────────────────────
+                -->
+                <div class="breakdown-card">
+                    <h3>P1 Cases</h3>
+                    
+                    <!-- P1 Open Cases -->
+                    <div class="breakdown-item">
+                        <div class="status-label">
+                            <span class="status-dot status-open"></span>
+                            Open
+                        </div>
+                        <div class="breakdown-value">
+                            <span class="count">2</span> <!-- EDIT THIS NUMBER -->
+                        </div>
+                    </div>
+                    
+                    <!-- P1 In Progress Cases -->
+                    <div class="breakdown-item">
+                        <div class="status-label">
+                            <span class="status-dot status-progress"></span>
+                            In Progress
+                        </div>
+                        <div class="breakdown-value">
+                            <span class="count">12</span> <!-- EDIT THIS NUMBER -->
+                        </div>
+                    </div>
+                    
+                    <!-- P1 In Review Cases -->
+                    <div class="breakdown-item">
+                        <div class="status-label">
+                            <span class="status-dot status-review"></span>
+                            In Review
+                        </div>
+                        <div class="breakdown-value">
+                            <span class="count">13</span> <!-- EDIT THIS NUMBER -->
+                        </div>
+                    </div>
+                    
+                    <!-- P1 Total -->
+                    <div style="margin-top: 24px; padding-top: 20px; border-top: 2px solid #e5e5e5;">
+                        <div class="breakdown-item">
+                            <div class="status-label" style="font-weight: 700; color: #f97316;">
+                                Total P1
+                            </div>
+                            <div class="breakdown-value">
+                                <span class="count" style="color: #f97316;">27</span> <!-- EDIT THIS NUMBER -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
