@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Advocacy Snapshot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border-bottom: 3px solid #e5e5e5;
+        }
+        
+        .stat-card {
+            padding: 40px 30px;
+            text-align: center;
+            border-right: 2px solid #e5e5e5;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:last-child {
+            border-right: none;
+        }
+        
+        .stat-card:hover {
+            background: #f9fafb;
+            transform: translateY(-2px);
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            font-size: 52px;
+            font-weight: 800;
+            color: #1f2937;
+            line-height: 1;
+        }
+        
+        .content-section {
+            padding: 40px;
+        }
+        
+        .section-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .info-card h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-row-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .dot-open { background: #ef4444; }
+        .dot-progress { background: #3b82f6; }
+        .dot-review { background: #8b5cf6; }
+        .dot-blocker { background: #dc2626; }
+        .dot-critical { background: #f59e0b; }
+        .dot-major { background: #fbbf24; }
+        
+        .stat-row-value {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            min-width: 40px;
+            text-align: right;
+        }
+        
+        .stat-percent {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 600;
+            min-width: 40px;
+        }
+        
+        .progress-bar {
+            width: 80px;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        @media (max-width: 968px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stat-card:nth-child(2) {
+                border-right: none;
+            }
+            
+            .stat-card:nth-child(3) {
+                border-top: 2px solid #e5e5e5;
+            }
+            
+            .section-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                border-right: none;
+                border-bottom: 2px solid #e5e5e5;
+            }
+            
+            .stat-card:last-child {
+                border-bottom: none;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .stat-value {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 
+        ═══════════════════════════════════════════════════════════
+        HEADER SECTION
+        ═══════════════════════════════════════════════════════════
+        Edit the title and date range below
+        -->
+        <div class="header">
+            <h1>Customer Advocacy Snapshot</h1>
+            <p>December 15th - 21st</p> <!-- EDIT DATE RANGE HERE -->
+        </div>
+        
+        <!-- 
+        ═══════════════════════════════════════════════════════════
+        TOP STATS SECTION
+        ═══════════════════════════════════════════════════════════
+        Update these four numbers with your current data
+        -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total New Issues</div>
+                <div class="stat-value">44</div> <!-- EDIT THIS NUMBER -->
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Completed This Week</div>
+                <div class="stat-value">4</div> <!-- EDIT THIS NUMBER -->
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">In Progress</div>
+                <div class="stat-value">20</div> <!-- EDIT THIS NUMBER -->
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Older than 1 Week</div>
+                <div class="stat-value">20</div> <!-- EDIT THIS NUMBER -->
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <div class="section-row">
+                <!-- 
+                ════════════════════════════════════════════════════════
+                LEFT SECTION: TYPES OF ESCALATIONS
+                ════════════════════════════════════════════════════════
+                Update the numbers and percentages for each type
+                Note: width percentage in progress bar should match the %
+                -->
+                <div class="info-card">
+                    <h2>Types of Escalations</h2>
+                    
+                    <!-- Policy Disagreement -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-open"></span>
+                            <span>Policy Disagreement</span>
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">18</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">41%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- Bypassed Support -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-progress"></span>
+                            <span>Bypassed Support</span>
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 25%"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">11</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">25%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- Agent Mishandled -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-review"></span>
+                            <span>Agent Mishandled</span>
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 18%"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">8</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">18%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- Product Feedback -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-blocker"></span>
+                            <span>Product Feedback</span>
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 11%"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">5</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">11%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 
+                ════════════════════════════════════════════════════════
+                RIGHT SECTION: ESCALATIONS BY SR
+                ════════════════════════════════════════════════════════
+                Update the numbers and percentages for each person
+                Note: width percentage in progress bar should match the %
+                -->
+                <div class="info-card">
+                    <h2>Escalations by SR</h2>
+                    
+                    <!-- Driver -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-blocker"></span>
+                            <span>Driver</span> <!-- EDIT NAME -->
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 14%; background: #dc2626;"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">6</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">14%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- Rider -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-critical"></span>
+                            <span>Rider</span> <!-- EDIT NAME -->
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 18%; background: #f59e0b;"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">8</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">18%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- 3rd Party -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-major"></span>
+                            <span>3rd Party</span> <!-- EDIT NAME -->
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 68%; background: #fbbf24;"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">30</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">68%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- Billy -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-progress"></span>
+                            <span>Billy</span> <!-- EDIT NAME -->
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 27%; background: #3b82f6;"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">12</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">27%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- Jacob -->
+                    <div class="stat-row">
+                        <div class="stat-row-label">
+                            <span class="status-dot dot-review"></span>
+                            <span>Jacob</span> <!-- EDIT NAME -->
+                        </div>
+                        <div class="stat-row-value">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 34%; background: #8b5cf6;"></div> <!-- EDIT WIDTH % -->
+                            </div>
+                            <span class="stat-number">15</span> <!-- EDIT COUNT -->
+                            <span class="stat-percent">34%</span> <!-- EDIT PERCENTAGE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
